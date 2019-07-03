@@ -19,7 +19,7 @@ def problem_generator(problem, qubits, layers, chi, qubits_lab=1):
     INPUT: 
         -chi: cost function, to choose between 'fidelity_chi' or 'weighted_fidelity_chi'
         -problem: name of the problem, to choose among
-            ['circle', '3 circles', 'wavy circle', 'wavy lines', 'sphere', 'non convex', 'crown', 'tricrown', 'hypersphere', 'iris']
+            ['circle', '3 circles', 'hypersphere', 'tricrown', 'non convex', 'crown', 'sphere', 'squares', 'wavy lines']
         -qubits: number of qubits, must be an integer
         -layers: number of layers, must be an integer. If layers == 1, entanglement is not taken in account
 
@@ -42,8 +42,6 @@ def problem_generator(problem, qubits, layers, chi, qubits_lab=1):
     problem = problem.lower()
     if problem == 'circle':
         theta, alpha, reprs = _circle(qubits, layers, qubits_lab, chi)
-    elif problem == 'wavy circle':
-        theta, alpha, reprs = _wavy_circle(qubits, layers, qubits_lab, chi)
     elif problem == '3 circles':
         theta, alpha, reprs = _3_circles(qubits, layers, qubits_lab, chi)
     elif problem == 'wavy lines':
@@ -60,8 +58,7 @@ def problem_generator(problem, qubits, layers, chi, qubits_lab=1):
         theta, alpha, reprs = _tricrown(qubits, layers, qubits_lab, chi)
     elif problem == 'hypersphere':
         theta, alpha, reprs = _hypersphere(qubits, layers, qubits_lab, chi)
-    elif problem == 'iris':
-        theta, alpha, reprs = _iris(qubits, layers, qubits_lab, chi)
+        
     else:
         raise ValueError('Problem is not valid')
         
@@ -73,13 +70,6 @@ def problem_generator(problem, qubits, layers, chi, qubits_lab=1):
 
 #All these are auxiliary functions for problem_generator
 def _circle(qubits, layers, qubits_lab, chi):
-    classes = 2
-    reprs = representatives(classes, qubits_lab)
-    theta = np.random.rand(qubits, layers, 3)
-    alpha = np.random.rand(qubits, layers, 2)
-    return theta, alpha, reprs
-
-def _wavy_circle(qubits, layers, qubits_lab, chi):
     classes = 2
     reprs = representatives(classes, qubits_lab)
     theta = np.random.rand(qubits, layers, 3)
@@ -137,13 +127,6 @@ def _sphere(qubits, layers, qubits_lab, chi):
 
 def _hypersphere(qubits, layers, qubits_lab, chi):
     classes = 2
-    reprs = representatives(classes, qubits_lab)
-    theta = np.random.rand(qubits, layers, 6)
-    alpha = np.random.rand(qubits, layers, 4)
-    return theta, alpha, reprs   
-
-def _iris(qubits, layers, qubits_lab, chi):
-    classes = 3
     reprs = representatives(classes, qubits_lab)
     theta = np.random.rand(qubits, layers, 6)
     alpha = np.random.rand(qubits, layers, 4)

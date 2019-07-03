@@ -11,7 +11,7 @@
 ###########################################################################
 
 #This file provides a classical benchmark for the same problem our quantum classifier is tackling
-#We use a standard classifier, a SVM by scikit learn
+#We use a standard classifier, a SVC by scikit learn
 
 from sklearn.neural_network import MLPClassifier
 from sklearn.svm import SVC
@@ -22,8 +22,12 @@ problem = 'squares'
 print(problem)
 data, drawing = data_generator(problem) #name for the problem
 
-train_data = data[:200]
-test_data = data[200:]
+number = 200
+if problem == 'sphere': number = 500
+elif problem == 'hypersphere': number = 1000
+
+train_data = data[:number]
+test_data = data[number:]
 
 X_train = []
 Y_train = []

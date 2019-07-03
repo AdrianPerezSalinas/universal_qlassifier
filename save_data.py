@@ -27,8 +27,8 @@ def write_summary(chi, problem, qubits, entanglement, layers, method, name,
     with this information and the parameters which are solution of the problem
     INPUT: 
         -chi: cost function, to choose between 'fidelity_chi' or 'weighted_fidelity_chi'
-        -problem: name of the problem, to choose among
-            ['circle', '3 circles', 'wavy circle', 'wavy lines', 'sphere', 'crown']
+        -problem: name of the problem, to choose between
+            ['circle', '3 circles', 'hypersphere', 'tricrown', 'non convex', 'crown', 'sphere', 'squares', 'wavy lines']
         -qubits: number of qubits, must be an integer
         -entanglement: whether there is entanglement or not in the Ansätze, just 'y'/'n'
         -layers: number of layers, must be an integer. If layers == 1, entanglement is not taken in account
@@ -89,7 +89,7 @@ def read_summary(chi, problem, qubits, entanglement, layers, method, name):
     INPUT: 
         -chi: cost function, to choose between 'fidelity_chi' or 'weighted_fidelity_chi'
         -problem: name of the problem, to choose among
-            ['circle', '3 circles', 'wavy circle', 'wavy lines', 'sphere', 'non convex', 'crown']
+            ['circle', '3 circles', 'hypersphere', 'tricrown', 'non convex', 'crown', 'sphere', 'squares', 'wavy lines'
         -qubits: number of qubits, must be an integer
         -entanglement: whether there is entanglement or not in the Ansätze, just 'y'/'n'
         -layers: number of layers, must be an integer. If layers == 1, entanglement is not taken in account
@@ -113,7 +113,7 @@ def read_summary(chi, problem, qubits, entanglement, layers, method, name):
         elif problem == 'sphere': 
             theta = np.loadtxt(foldname + '/' + name + '_theta.txt').reshape((qubits, layers, 3))
             dim = 3
-        elif problem in ['hypersphere', 'iris']: 
+        elif problem in ['hypersphere']: 
             theta = np.loadtxt(foldname + '/' + name + '_theta.txt').reshape((qubits, layers, 6))
             dim = 4
             
@@ -128,7 +128,7 @@ def read_summary(chi, problem, qubits, entanglement, layers, method, name):
         elif problem == 'sphere': 
             theta = np.loadtxt(foldname + '/' + name + '_theta.txt').reshape((qubits, layers, 3))
             dim = 3
-        elif problem in ['hypersphere', 'iris']: 
+        elif problem in ['hypersphere']: 
             theta = np.loadtxt(foldname + '/' + name + '_theta.txt').reshape((qubits, layers, 6))
             dim = 4
             
@@ -138,7 +138,7 @@ def read_summary(chi, problem, qubits, entanglement, layers, method, name):
             weight = np.loadtxt(foldname + '/' + name + '_weight.txt').reshape((4, qubits))
         if problem in ['circle','wavy circle','sphere', 'non convex', 'crown', 'hypersphere']:
             weight = np.loadtxt(foldname + '/' + name + '_weight.txt').reshape((2, qubits))
-        if problem in ['tricrown', 'iris']:
+        if problem in ['tricrown']:
             weight = np.loadtxt(foldname + '/' + name + '_weight.txt').reshape((3, qubits))
         return theta, alpha, weight
     
@@ -150,7 +150,7 @@ def write_epochs_file(chi, problem, qubits, entanglement, layers, method, name):
     INPUT: 
         -chi: cost function, to choose between 'fidelity_chi' or 'weighted_fidelity_chi'
         -problem: name of the problem, to choose among
-            ['circle', '3 circles', 'wavy circle', 'wavy lines', 'sphere', 'non convex', 'crown']
+            ['circle', '3 circles', 'hypersphere', 'tricrown', 'non convex', 'crown', 'sphere', 'squares', 'wavy lines']
         -qubits: number of qubits, must be an integer
         -entanglement: whether there is entanglement or not in the Ansätze, just 'y'/'n'
         -layers: number of layers, must be an integer. If layers == 1, entanglement is not taken in account
@@ -211,7 +211,7 @@ def write_epochs_error_rate(chi, problem, qubits, entanglement, layers, method, 
     INPUT: 
         -chi: cost function, to choose between 'fidelity_chi' or 'weighted_fidelity_chi'
         -problem: name of the problem, to choose among
-            ['circle', '3 circles', 'wavy circle', 'wavy lines', 'sphere']
+            ['circle', '3 circles', 'hypersphere', 'tricrown', 'non convex', 'crown', 'sphere', 'squares', 'wavy lines']
         -qubits: number of qubits, must be an integer
         -entanglement: whether there is entanglement or not in the Ansätze, just 'y'/'n'
         -layers: number of layers, must be an integer. If layers == 1, entanglement is not taken in account
@@ -235,7 +235,7 @@ def samples_paint(problem, settings, sol, foldname, filename, bw):
     This function takes the problem and the points when they are already classified, and saves a picture of them
     INPUT: 
         -problem: name of the problem, to choose among
-            ['circle', '3 circles', 'wavy circle', 'wavy lines', 'sphere', 'non convex', 'crown', 'tricrown']
+            ['circle', '3 circles', 'hypersphere', 'tricrown', 'non convex', 'crown', 'sphere', 'squares', 'wavy lines']
         -settings: parameters the function needs for drawing. Provided by problem_gen.problem_gen
         -sol: solutions of the points alreafy classified
         -foldname : name of the folder where we store results
@@ -253,7 +253,7 @@ def samples_paint(problem, settings, sol, foldname, filename, bw):
         
     if bw == True:
         colors_classes = get_cmap('Greys')
-        norm_class = Normalize(vmin=-.5,vmax=np.max(sol[:,-3]) + .5)
+        norm_class = Normalize(vmin=-.1,vmax=np.max(sol[:,-3]) + .1)
     
         colors_rightwrong = get_cmap('Greys')
         norm_rightwrong = Normalize(vmin=-.1,vmax=1.1)
@@ -348,7 +348,7 @@ def samples_paint_worldmap(problem, settings, sol, foldname, filename, bw):
     This function takes the problem and the points when they are already classified, and saves a picture of them
     INPUT: 
         -problem: name of the problem, to choose among
-            ['circle', '3 circles', 'wavy circle', 'wavy lines', 'sphere', 'non convex', 'crown', 'tricrown']
+            ['circle', '3 circles', 'hypersphere', 'tricrown', 'non convex', 'crown', 'sphere', 'squares', 'wavy lines']
         -settings: parameters the function needs for drawing. Provided by problem_gen.problem_gen
         -sol: solutions of the points alreafy classified
         -foldname : name of the folder where we store results
@@ -445,7 +445,7 @@ def name_folder(chi, problem, qubits, entanglement, layers, method):
     INPUT: 
         -chi: cost function, to choose between 'fidelity_chi' or 'weighted_fidelity_chi'
         -problem: name of the problem, to choose among
-            ['circle', '3 circles', 'wavy circle', 'wavy lines', 'sphere', 'non convex']
+            ['circle', '3 circles', 'hypersphere', 'tricrown', 'non convex', 'crown', 'sphere', 'squares', 'wavy lines']
         -qubits: number of qubits, must be an integer
         -entanglement: whether there is entanglement or not in the Ansätze, just 'y'/'n'
         -layers: number of layers, must be an integer. If layers == 1, entanglement is not taken in account
