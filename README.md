@@ -1,8 +1,8 @@
-# Code for *[Data re-uploading for a universal quantum classifier](https://arxiv.org/abs/1806.11463)*
+# Code for *[Data re-uploading for a universal quantum classifier](https://arxiv.org/abs/1907.02085)*
 #### Adrián Pérez-Salinas, Alba Cervera-Lierta, Elies Gil-Fuster, and José I. Latorre.
 
-This is a repository for all code written for the article "*Data re-uploading for a universal quantum classifier*. Adrián Pérez-Salinas, Alba Cervera-Lierta, Elies Gil-Fuster, and José I. Latorre. [arXiv: [quant-ph]](https://arxiv.org/abs/)."
-It gives numerical simulations of the [quantum classifier] in.
+This is a repository for all code written for the article "*Data re-uploading for a universal quantum classifier*. Adrián Pérez-Salinas, Alba Cervera-Lierta, Elies Gil-Fuster, and José I. Latorre."
+It gives numerical simulations of the quantum classifier in [arXiv:1907.02085](https://arxiv.org/abs/1907.02085).
 
 All code is written Python. Libraries required:
   - matplotlib for plots
@@ -24,7 +24,7 @@ All code is written Python. Libraries required:
 ##### How to cite
 If you use this code in your research, please cite it as follows:
 
-A. Pérez-Salinas, A. Cervera-Lierta, E. Gil-Fuster and J.I. Latorre, "Data re-uploading for a universal quantum classifier", (2019), arXiv: [quant-ph], https://arxiv.org/abs/
+A. Pérez-Salinas, A. Cervera-Lierta, E. Gil-Fuster and J.I. Latorre, "Data re-uploading for a universal quantum classifier", (2019), arXiv: [quant-ph], https://arxiv.org/abs/1907.02085
 
 BibTeX:
 ```
