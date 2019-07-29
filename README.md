@@ -24,7 +24,7 @@ All code is written Python. Libraries required:
 ##### How to cite
 If you use this code in your research, please cite it as follows:
 
-A. Pérez-Salinas, A. Cervera-Lierta, E. Gil-Fuster and J.I. Latorre, "Data re-uploading for a universal quantum classifier", (2019), arXiv: [quant-ph], https://arxiv.org/abs/1907.02085
+A. Pérez-Salinas, A. Cervera-Lierta, E. Gil-Fuster and J.I. Latorre, "Data re-uploading for a universal quantum classifier", (2019), arXiv: quant-ph: 1907.02085
 
 BibTeX:
 ```
