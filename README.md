@@ -28,12 +28,12 @@ A. Pérez-Salinas, A. Cervera-Lierta, E. Gil-Fuster and J.I. Latorre, "Data re-u
 
 BibTeX:
 ```
-@misc{PerezSalinas2019DRUUQC,
+@misc{PerezSalinas2019DRUQC,
   author = {Pérez-Salinas, A. and Cervera-Lierta, A. and Gil-Fuster, E. and Latorre, J. I.},
   title = {{Data} re-uploading for a universal quantum classifier},
   year = {2019},
   journal={arXiv:},
-  url = {https://arxiv.org/abs/}
+  url = {https://arxiv.org/abs/1907.02085}
 }
 ```
 
