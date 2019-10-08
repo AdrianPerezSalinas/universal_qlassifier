@@ -90,7 +90,7 @@ def _qcircuit_2qubit_entanglement(theta_aux):
     for l in range(theta_aux.shape[1] - 1):
         for q in range(theta_aux.shape[0]):
             C.U3(q, theta_aux[q,l,:])
-            C.Cz(0,1)
+        C.Cz(0,1)
     for q in range(theta_aux.shape[0]):
         C.U3(q, theta_aux[q,-1,:])
     return C
@@ -107,12 +107,12 @@ def _qcircuit_4qubit_entanglement(theta_aux):
     for l in range(theta_aux.shape[1] - 1):
         for q in range(theta_aux.shape[0]):
             C.U3(q, theta_aux[q,l,:])
-            if l%2 == 0:
-                C.Cz(0,1)
-                C.Cz(2,3)
-            elif l%2 == 1:
-                C.Cz(1,2)
-                C.Cz(0,3)
+        if l%2 == 0:
+            C.Cz(0,1)
+            C.Cz(2,3)
+        elif l%2 == 1:
+            C.Cz(1,2)
+            C.Cz(0,3)
     for q in range(theta_aux.shape[0]):
         C.U3(q, theta_aux[q,-1,:])
     return C
@@ -140,7 +140,7 @@ def _double_qcircuit_2qubit_entanglement(theta_aux):
         for q in range(theta_aux.shape[0]):
             C.U3(q, theta_aux[q,l,:3])
             C.U3(q, theta_aux[q,l,3:])
-            C.Cz(0,1)
+        C.Cz(0,1)
     for q in range(theta_aux.shape[0]):
         C.U3(q, theta_aux[q,-1,:3])
         C.U3(q, theta_aux[q,-1,3:])
@@ -160,12 +160,12 @@ def _double_qcircuit_4qubit_entanglement(theta_aux):
         for q in range(theta_aux.shape[0]):
             C.U3(q, theta_aux[q,l,:3])
             C.U3(q, theta_aux[q,l,3:])
-            if l%2 == 0:
-                C.Cz(0,1)
-                C.Cz(2,3)
-            elif l%2 == 1:
-                C.Cz(1,2)
-                C.Cz(0,3)
+        if l%2 == 0:
+            C.Cz(0,1)
+            C.Cz(2,3)
+        elif l%2 == 1:
+            C.Cz(1,2)
+            C.Cz(0,3)
     for q in range(theta_aux.shape[0]):
         C.U3(q, theta_aux[q,-1,:3])
         C.U3(q, theta_aux[q,-1,3:])
