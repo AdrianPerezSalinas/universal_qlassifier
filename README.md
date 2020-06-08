@@ -2,7 +2,7 @@
 #### Adrián Pérez-Salinas, Alba Cervera-Lierta, Elies Gil-Fuster, and José I. Latorre.
 
 This is a repository for all code written for the article "*Data re-uploading for a universal quantum classifier*. Adrián Pérez-Salinas, Alba Cervera-Lierta, Elies Gil-Fuster, and José I. Latorre."
-It gives numerical simulations of the quantum classifier in [arXiv:1907.02085](https://arxiv.org/abs/1907.02085).
+It gives numerical simulations of the quantum classifier in [Quantum 4, 226 (2020)](https://quantum-journal.org/papers/q-2020-02-06-226/).
 
 All code is written Python. Libraries required:
   - matplotlib for plots
