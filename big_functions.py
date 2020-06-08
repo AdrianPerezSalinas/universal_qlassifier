@@ -18,10 +18,13 @@ from problem_gen import problem_generator, representatives
 from fidelity_minimization import fidelity_minimization
 from weighted_fidelity_minimization import weighted_fidelity_minimization
 from test_data import Accuracy_test, tester
-from save_data import write_summary, read_summary, name_folder, samples_paint
+from save_data import write_summary, read_summary, name_folder, samples_paint, samples_paint_worldmap, laea_x, laea_y
 from save_data import write_epochs_file, write_epoch, close_epochs_file, create_folder, write_epochs_error_rate
 import numpy as np
 import matplotlib.pyplot as plt
+from circuitery import code_coords, circuit
+from matplotlib.cm import get_cmap
+from matplotlib.colors import Normalize
 
 def minimizer(chi, problem, qubits, entanglement, layers, method, name,
               seed = 30, epochs=3000, batch_size=20,  eta=0.1):
@@ -143,6 +146,80 @@ def painter(chi, problem, qubits, entanglement, layers, method, name,
 
     foldname = name_folder(chi, problem, qubits, entanglement, layers, method)
     samples_paint(problem, drawing, sol_test, foldname, name, bw)
+
+def paint_world(chi, problem, qubits, entanglement, layers, method, name,
+            seed = 30, standard_test = True, samples = 4000, bw = False, err = False):
+    np.random.seed(seed)
+
+    if chi == 'fidelity_chi':
+        qubits_lab = qubits
+    elif chi == 'weighted_fidelity_chi':
+        qubits_lab = 1
+
+    if standard_test == True:
+        data, drawing = data_generator(problem)
+        if problem == 'sphere':
+            test_data = data[500:]
+        elif problem == 'hypersphere':
+            test_data = data[1000:]
+        else:
+            test_data = data[200:]
+
+    elif standard_test == False:
+        test_data, drawing = data_generator(problem, samples=samples)
+
+    if problem in ['circle', 'wavy circle', 'sphere', 'non convex', 'crown', 'hypersphere']:
+        classes = 2
+    if problem in ['tricrown']:
+        classes = 3
+    elif problem in ['3 circles', 'wavy lines', 'squares']:
+        classes = 4
+
+    reprs = representatives(classes, qubits_lab)
+
+    params = read_summary(chi, problem, qubits, entanglement, layers, method, name)
+
+    if chi == 'fidelity_chi':
+        theta, alpha = params
+        sol_test, acc_test = Accuracy_test(theta, alpha, test_data, reprs, entanglement, chi)
+
+    if chi == 'weighted_fidelity_chi':
+        theta, alpha, weight = params
+        sol_test, acc_test = Accuracy_test(theta, alpha, test_data, reprs,
+                                           entanglement, chi, weights=weight)
+
+    foldname = name_folder(chi, problem, qubits, entanglement, layers, method)
+    angles = np.zeros((len(sol_test), 2))
+    for i, x in enumerate(sol_test[:, :2]):
+        theta_aux = code_coords(theta, alpha, x)
+        C = circuit(theta_aux, entanglement)
+        angles[i, 0] = np.arccos(np.abs(C.psi[0])**2 - np.abs(C.psi[1])**2) - np.pi/2
+        angles[i, 1] = np.angle(C.psi[1] / C.psi[0])
+        print(angles[i])
+
+    if bw == False:
+        colors_classes = get_cmap('plasma')
+        norm_class = Normalize(vmin=-.5, vmax=np.max(sol_test[:, -3]) + .5)
+
+        colors_rightwrong = get_cmap('RdYlGn')
+        norm_rightwrong = Normalize(vmin=-.1, vmax=1.1)
+
+    if bw == True:
+        colors_classes = get_cmap('Greys')
+        norm_class = Normalize(vmin=-.1, vmax=np.max(sol[:, -3]) + .1)
+
+        colors_rightwrong = get_cmap('Greys')
+        norm_rightwrong = Normalize(vmin=-.1, vmax=1.1)
+
+    fig, ax = plt.subplots(nrows=2)
+    ax[0].plot(laea_x(np.pi, np.linspace(0, np.pi)), laea_y(np.pi, np.linspace(0, np.pi)), color='k')
+    ax[0].plot(laea_x(-np.pi, np.linspace(0, -np.pi)), laea_y(-np.pi, np.linspace(0, -np.pi)), color='k')
+    ax[1].plot(laea_x(np.pi, np.linspace(0, np.pi)), laea_y(np.pi, np.linspace(0, np.pi)), color='k')
+    ax[1].plot(laea_x(-np.pi, np.linspace(0, -np.pi)), laea_y(-np.pi, np.linspace(0, -np.pi)), color='k')
+    ax[0].scatter(laea_x(angles[:, 1], angles[:, 0]), laea_y(angles[:, 1], angles[:, 0]), c=sol_test[:, -2],
+                  cmap=colors_classes, s=2, norm=norm_class)
+    ax[1].scatter(laea_x(angles[:, 1], angles[:, 0]), laea_y(angles[:, 1], angles[:, 0]), c=sol_test[:,-1], cmap = colors_rightwrong, s=2, norm=norm_rightwrong)
+    plt.show()
 
 
 def SGD_step_by_step_minimization(problem, qubits, entanglement, layers, name, 

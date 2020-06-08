@@ -262,7 +262,6 @@ def samples_paint(problem, settings, sol, foldname, filename, bw):
     ax = axs[0]
     if problem in ['circle', '3 circles', 'crown', 'tricrown']:
         centers, radii = settings
-        phi = np.linspace(0, 2*np.pi, 100)
         for c, r in zip(centers, radii):
             ca = plt.Circle(c, r, color='k', fill=False, linewidth=2)
             ax.add_artist(ca)
@@ -303,7 +302,6 @@ def samples_paint(problem, settings, sol, foldname, filename, bw):
     bx.scatter(sol[:,0], sol[:,1], c=sol[:,-1], cmap = colors_rightwrong, s=2, norm=norm_rightwrong)  
     if problem in ['circle', '3 circles', 'crown', 'tricrown']:
         centers, radii = settings
-        phi = np.linspace(0, 2*np.pi, 100)
         for c, r in zip(centers, radii):
             ca = plt.Circle(c, r, color='k', fill=False, linewidth=2)
             bx.add_artist(ca)
@@ -341,8 +339,15 @@ def samples_paint(problem, settings, sol, foldname, filename, bw):
     
     fig.savefig(foldname + '/' + filename)
     plt.close('all')
-    
-'''
+
+def laea_x(lamb, phi):
+    return 2*np.sqrt(2) * np.cos(phi)*np.sin(lamb / 2) / np.sqrt(1 + np.cos(phi)*np.cos(lamb/2))
+
+
+def laea_y(lamb, phi):
+    return np.sqrt(2) * np.sin(phi) / np.sqrt(1 + np.cos(phi)*np.cos(lamb/2))
+
+
 def samples_paint_worldmap(problem, settings, sol, foldname, filename, bw):
     """
     This function takes the problem and the points when they are already classified, and saves a picture of them
@@ -426,7 +431,7 @@ def _winkel_map(angles):
     y = .5 * (angles[1] * 180 / np.pi + np.sin(angles[1])/np.sinc(alpha/np.pi))
     
     return np.array([x,y])
-'''
+
     
 def create_folder(directory): 
     """

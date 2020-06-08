@@ -24,16 +24,23 @@ All code is written Python. Libraries required:
 ##### How to cite
 If you use this code in your research, please cite it as follows:
 
-A. Pérez-Salinas, A. Cervera-Lierta, E. Gil-Fuster and J.I. Latorre, "Data re-uploading for a universal quantum classifier", (2019), arXiv: quant-ph: 1907.02085
+Pérez-Salinas, A., Cervera-Lierta, A., Gil-Fuster, E., & Latorre, J. I. (2020). Data re-uploading for a universal quantum classifier. Quantum, 4, 226.
 
 BibTeX:
 ```
-@misc{PerezSalinas2019DRUQC,
-  author = {Pérez-Salinas, A. and Cervera-Lierta, A. and Gil-Fuster, E. and Latorre, J. I.},
-  title = {{Data} re-uploading for a universal quantum classifier},
-  year = {2019},
-  journal={arXiv:},
-  url = {https://arxiv.org/abs/1907.02085}
+@article{P_rez_Salinas_2020,
+   title={Data re-uploading for a universal quantum classifier},
+   volume={4},
+   ISSN={2521-327X},
+   url={http://dx.doi.org/10.22331/q-2020-02-06-226},
+   DOI={10.22331/q-2020-02-06-226},
+   journal={Quantum},
+   publisher={Verein zur Forderung des Open Access Publizierens in den Quantenwissenschaften},
+   author={Pérez-Salinas, Adrián and Cervera-Lierta, Alba and Gil-Fuster, Elies and Latorre, José I.},
+   year={2020},
+   month={Feb},
+   pages={226}
 }
+
 ```
 
